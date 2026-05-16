@@ -1,0 +1,11 @@
+.venv
+.pytest_cache
+frontend/node_modules
+frontend/dist
+release
+slim
+notes-app-release.tar.gz
+test.db
+backend/dev.db
+backend/test.db
+**/__pycache__

@@ -13,7 +13,6 @@ class LoginRequest(BaseModel):
 
 class TokenResponse(BaseModel):
     access_token: str
-    token_type: str = "bearer"
 
 
 class RefreshResponse(BaseModel):
@@ -25,9 +24,11 @@ class MessageResponse(BaseModel):
 
 
 class AboutResponse(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     name: str
     email: str
-    features: dict[str, str]
+    my_features: dict[str, str] = Field(alias="my features")
 
 
 class UserOut(BaseModel):

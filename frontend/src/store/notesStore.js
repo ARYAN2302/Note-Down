@@ -31,13 +31,17 @@ export const useNotesStore = create((set, get) => ({
         notesApi.list({ status: "archived" }),
         notesApi.list({ status: "trashed" })
       ]);
+      const normalise = (value) => (Array.isArray(value) ? value : value?.items || []);
       const currentId = get().selectedNoteId;
-      const allNotes = [...active.items, ...archived.items, ...trashed.items];
+      const activeNotes = normalise(active);
+      const archivedNotes = normalise(archived);
+      const trashedNotes = normalise(trashed);
+      const allNotes = [...activeNotes, ...archivedNotes, ...trashedNotes];
       const fallbackId = allNotes[0]?.id || null;
       set({
-        notes: active.items,
-        archivedNotes: archived.items,
-        trashedNotes: trashed.items,
+        notes: activeNotes,
+        archivedNotes,
+        trashedNotes,
         selectedNoteId: allNotes.some((note) => note.id === currentId) ? currentId : fallbackId,
         loading: false
       });

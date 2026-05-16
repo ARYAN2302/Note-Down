@@ -24,6 +24,7 @@ from app.services.note_service import (
     get_version,
     get_versions,
     list_notes,
+    list_notes_plain,
     list_shares,
     list_tags,
     remove_tag_from_note,
@@ -63,8 +64,19 @@ def user_key(request: Request) -> str:
 limiter = Limiter(key_func=ip_key)
 
 
-@router.get("", response_model=NoteListResponse)
+@router.get("", response_model=list[NoteOut])
 async def get_notes(
+    status_filter: str = Query(default="active", alias="status"),
+    sort: str = Query(default="updated_at"),
+    order: str = Query(default="desc"),
+    current_user: User = Depends(get_current_user),
+    session: AsyncSession = Depends(get_db),
+) -> list[dict]:
+    return await list_notes_plain(session, str(current_user.id), status_filter, sort, order)
+
+
+@router.get("/paged", response_model=NoteListResponse)
+async def get_notes_paged(
     page: int = Query(default=1, ge=1),
     limit: int = Query(default=20, ge=1, le=100),
     status_filter: str = Query(default="active", alias="status"),

@@ -14,8 +14,12 @@ async def test_create_and_list_notes(client, auth_headers):
     listing = await client.get("/notes", headers=auth_headers)
     assert listing.status_code == 200
     payload = listing.json()
-    assert payload["total"] == 1
-    assert payload["items"][0]["title"] == "First"
+    assert isinstance(payload, list)
+    assert payload[0]["title"] == "First"
+
+    paged = await client.get("/notes/paged", headers=auth_headers)
+    assert paged.status_code == 200
+    assert paged.json()["total"] == 1
 
 
 @pytest.mark.asyncio
@@ -32,4 +36,4 @@ async def test_delete_note_soft_deletes(client, auth_headers):
     assert delete.status_code == 204
     trashed = await client.get("/notes", headers=auth_headers, params={"status": "trashed"})
     assert trashed.status_code == 200
-    assert trashed.json()["items"][0]["status"] == "trashed"
+    assert trashed.json()[0]["status"] == "trashed"

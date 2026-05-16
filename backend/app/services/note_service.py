@@ -115,6 +115,25 @@ async def list_notes(
     }
 
 
+async def list_notes_plain(
+    session: AsyncSession,
+    user_id: str,
+    status_filter: str,
+    sort: str,
+    order: str,
+) -> list[dict]:
+    collected: list[dict] = []
+    page = 1
+    limit = 100
+    while True:
+        paged = await list_notes(session, user_id, page=page, limit=limit, status_filter=status_filter, sort=sort, order=order)
+        collected.extend(paged["items"])
+        if page >= paged["pages"]:
+            break
+        page += 1
+    return collected
+
+
 async def create_note(session: AsyncSession, user_id: str, title: str, content: str, tag_ids: list[str] | None) -> Note:
     title = sanitize_text(title, "Title", settings.MAX_TITLE_LENGTH)
     if not title:

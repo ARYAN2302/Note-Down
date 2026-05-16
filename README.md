@@ -43,3 +43,5 @@ uvicorn app.main:app --reload
 - The backend uses Gemini Flash 2.5 through `google.generativeai`.
 - Docker compose includes PostgreSQL so the backend can run with its default `DATABASE_URL`.
 - The root `Dockerfile`s build production images for both services.
+- Before deploying on Render, set real values for `ABOUT_NAME`, `ABOUT_EMAIL`, `SECRET_KEY`, `DATABASE_URL`, `GEMINI_API_KEY`, and a production `CORS_ORIGINS` that includes the deployed frontend URL.
+- The `/notes` route now returns a plain array for spec compatibility; paginated results remain available at `/notes/paged`.

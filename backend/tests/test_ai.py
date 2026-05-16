@@ -15,7 +15,7 @@ async def test_ai_endpoints_reject_empty_notes(client, auth_headers):
 async def test_about_and_openapi_are_available(client):
     about = await client.get("/about")
     assert about.status_code == 200
-    assert "features" in about.json()
+    assert "my features" in about.json()
     openapi = await client.get("/openapi.json")
     assert openapi.status_code == 200
     assert openapi.json()["openapi"].startswith("3.")

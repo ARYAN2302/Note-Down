@@ -16,4 +16,4 @@ async def test_shared_note_appears_for_recipient(client, auth_headers):
     viewer_headers = {"Authorization": f"Bearer {login.json()['access_token']}"}
     listing = await client.get("/notes", headers=viewer_headers)
     assert listing.status_code == 200
-    assert listing.json()["items"][0]["shared_by"] == "owner@example.com"
+    assert listing.json()[0]["shared_by"] == "owner@example.com"

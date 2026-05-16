@@ -31,3 +31,11 @@ async def test_refresh_issues_new_access_token(client):
     response = await client.post("/refresh")
     assert response.status_code == 200
     assert "access_token" in response.json()
+
+
+@pytest.mark.asyncio
+async def test_login_returns_access_token_only(client):
+    await client.post("/register", json={"email": "shape@example.com", "password": "secure123"})
+    response = await client.post("/login", json={"email": "shape@example.com", "password": "secure123"})
+    assert response.status_code == 200
+    assert set(response.json().keys()) == {"access_token"}

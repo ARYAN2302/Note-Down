@@ -35,11 +35,13 @@ async def get_note_with_access(
 
     query = (
         select(Note)
-        .options(selectinload(Note.tags), selectinload(Note.shares))
+        .options(selectinload(Note.tags), selectinload(Note.shares), selectinload(Note.owner))
         .where(Note.id == parsed_id)
     )
     note = await session.scalar(query)
     if not note:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found")
+    if note.status == "trashed":
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found")
     if str(note.owner_id) == user_id:
         return note, None

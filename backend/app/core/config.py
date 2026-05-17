@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     MAX_CONTENT_LENGTH: int = 100000
     RATE_LIMIT_AUTH: str = "5/minute"
     CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
-    CORS_ORIGIN_REGEX: str = r"https://.*\\.vercel\\.app$"
+    CORS_ORIGIN_REGEX: str = r"https://.*\.vercel\.app$"
     ABOUT_NAME: str = "Your Name"
     ABOUT_EMAIL: EmailStr = "your@email.com"
     DEV_DATABASE_URL: str = "sqlite+aiosqlite:///./dev.db"

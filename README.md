@@ -158,6 +158,7 @@ When deploying, override these with real production values:
 - `DATABASE_URL`
 - `GEMINI_API_KEY`
 - `CORS_ORIGINS` to include your deployed Vercel URL
+- Render's default PostgreSQL connection string is fine for `DATABASE_URL`; the backend normalizes it to the async driver automatically
 
 ---
 

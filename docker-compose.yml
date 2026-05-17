@@ -26,7 +26,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://notesuser:notespass@db:5432/notesdb}
       SECRET_KEY: ${SECRET_KEY:-change-me-at-least-32-chars-change-me-at-least-32-chars}
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-your-gemini-api-key-here}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
       ABOUT_NAME: ${ABOUT_NAME:-Your Name}
       ABOUT_EMAIL: ${ABOUT_EMAIL:-your@email.com}
@@ -39,6 +39,8 @@ services:
     depends_on:
       backend:
         condition: service_started
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://127.0.0.1:8001}
     ports:
       - "5173:80"
 

@@ -31,7 +31,7 @@
 </div>
 
 ---
-
+Frontend Deployed - note-down-three.vercel.app( wait for 60 seconds as render backend may have slept)
 ## What is Note-Down?
 
 Note-Down is a full-stack, multi-user notes service built with FastAPI and React. It includes JWT authentication, collaborative note sharing, version history, full-text search, and three AI-powered writing tools backed by Google Gemini Flash 2.5.

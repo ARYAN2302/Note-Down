@@ -159,7 +159,7 @@ When deploying, override these with real production values:
 - `GEMINI_API_KEY`
 - `CORS_ORIGINS` to include your deployed Vercel URL
 - Render's default PostgreSQL connection string is fine for `DATABASE_URL`; the backend normalizes it to the async driver automatically
-- For the current Vercel preview domain, add the exact origin shown in the browser console to `CORS_ORIGINS` on Render, then redeploy the backend
+- For Vercel preview URLs, the backend now allows `*.vercel.app` origins by default; for a custom domain, add it to `CORS_ORIGINS` on Render and redeploy the backend
 
 ---
 
